@@ -45,7 +45,7 @@ const OnboardingDashboardScreen: FC<ScreenProps> = ({ navigation }) => {
           ))}
         </View>
         <Button
-          onPress={() => navigation.navigate('ServiceProviders')}
+          // onPress={() => navigation.navigate('ServiceProviders')}
           style={styles.button}
           labelStyle={{ color: 'white', fontSize: 18 }}
         >Continue</Button>
@@ -54,7 +54,7 @@ const OnboardingDashboardScreen: FC<ScreenProps> = ({ navigation }) => {
           mode="outlined"
           style={styles.skipButton}
           labelStyle={{ color: '#E35205', fontSize: 18 }}
-          onPress={() => navigation.navigate('ServiceProviders')}
+        // onPress={() => navigation.navigate('ServiceProviders')}
         >
           Skip for now
         </Button>
