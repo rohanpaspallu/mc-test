@@ -4,6 +4,8 @@ import {StyleSheet, Animated, StatusBar} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import OnboardingDashboardScreen from './onboarding.dashboard.screen';
+import AllSetModal from './AllSetModal';
+import SecondPage from './secondPage/SecondPage';
 
 export type DashboardRoutes = {
   DashboardOnboarding: undefined;
@@ -50,6 +52,14 @@ export const DashboardStack = () => {
         component={OnboardingDashboardScreen}
         options={{
           headerTitle: 'Onboarding',
+        }}
+      />
+      <Stack.Screen
+        name="SecondPage"
+        component={SecondPage}
+        options={{
+          headerTitle: 'Cards',
+          headerLeft: null,
         }}
       />
     </Stack.Navigator>

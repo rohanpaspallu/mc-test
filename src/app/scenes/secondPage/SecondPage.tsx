@@ -2,12 +2,12 @@ import React from 'react';
 import {View} from 'react-native';
 import {Text} from 'react-native-paper';
 
-const CardView = () => {
+const SecondPage = () => {
   return (
     <View>
-      <Text>Second Page starts here</Text>
+      <Text>Second Page</Text>
     </View>
   );
 };
 
-export default CardView;
+export default SecondPage;

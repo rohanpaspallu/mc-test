@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Dimensions, Modal, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -6,6 +7,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const AllSetModal = (props: any) => {
   const {modalVisible, setModalVisible} = props;
+  const navigation = useNavigation();
   return (
     <Modal
       animationType="slide"
@@ -55,7 +57,7 @@ const AllSetModal = (props: any) => {
             <Button
               style={styles.connectedButton}
               labelStyle={{color: 'white', fontSize: 18}}
-              onPress={() => setModalVisible(true)}>
+              onPress={() => navigation.navigate('SecondPage')}>
               View Dashboard
             </Button>
           </LinearGradient>
