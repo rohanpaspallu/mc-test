@@ -41,7 +41,7 @@ const AllSetModal = (props: any) => {
                 onPress={() => setModalVisible(false)}
               />
             </View>
-            <Text style={styles.firstText}>Connect </Text>
+            <Text style={styles.firstText}>All Set! </Text>
           </View>
 
           <View style={styles.container}>
@@ -118,7 +118,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     overflow: 'hidden',
   },
-  firstText: {marginTop: 10, fontSize: 26, fontWeight: 'bold'},
+  firstText: {
+    marginTop: 10,
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#333333',
+  },
   secondText: {
     marginTop: 10,
     color: '#5C5C5C',
