@@ -1,25 +1,27 @@
-import React, { FC, useState } from 'react';
-import { StyleSheet, StatusBar, View } from 'react-native';
+import React, {FC, useState} from 'react';
+import {StyleSheet, StatusBar, View} from 'react-native';
 
-import { StackScreenProps } from '@react-navigation/stack';
-import { DashboardRoutes } from './dashboard.stack';
-import { Button, Text } from 'react-native-paper';
+import {StackScreenProps} from '@react-navigation/stack';
+import {DashboardRoutes} from './dashboard.stack';
+import {Button, Text} from 'react-native-paper';
 import MyCards from './MyCards';
 import NetflixLogo from '../../assets/images/Netflix.jpg';
 import SpotifyLogo from '../../assets/images/spotify.png';
 import UberEatsLogo from '../../assets/images/ubereats.png';
 import StarbucksLogo from '../../assets/images/starbucks.png';
 import LinearGradient from 'react-native-linear-gradient';
+import AllSetModal from './AllSetModal';
 
 type ScreenProps = StackScreenProps<DashboardRoutes, 'DashboardOnboarding'>;
 
-const OnboardingDashboardScreen: FC<ScreenProps> = ({ navigation }) => {
+const OnboardingDashboardScreen: FC<ScreenProps> = ({navigation}) => {
   const [data, setData] = useState([
-    { id: 1, title: 'Netflix', logo: NetflixLogo, filled: false },
-    { id: 2, title: 'Spotify', logo: SpotifyLogo, filled: false },
-    { id: 3, title: 'UberEats', logo: UberEatsLogo, filled: false },
-    { id: 4, title: 'StarBucks', logo: StarbucksLogo, filled: false },
+    {id: 1, title: 'Netflix', logo: NetflixLogo, filled: false},
+    {id: 2, title: 'Spotify', logo: SpotifyLogo, filled: false},
+    {id: 3, title: 'UberEats', logo: UberEatsLogo, filled: false},
+    {id: 4, title: 'StarBucks', logo: StarbucksLogo, filled: false},
   ]);
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
       <StatusBar
@@ -32,41 +34,45 @@ const OnboardingDashboardScreen: FC<ScreenProps> = ({ navigation }) => {
       <View style={styles.container}>
         <Text style={styles.subtitle}>Connect service providers</Text>
         <Text style={styles.description}>
-          Select accounts you have that you would like to update with your new credit card
+          Select accounts you have that you would like to update with your new
+          credit card
         </Text>
 
-        <View style={{ padding: 10 }}>
+        <View style={{padding: 10}}>
           <MyCards data={data} setData={setData} />
         </View>
-        {!data.some(item => item.filled) ? <Button
-          // onPress={() => navigation.navigate('MyCards')}
-          style={styles.button}
-          labelStyle={{ color: 'white', fontSize: 18 }}
-        >Continue</Button> : <LinearGradient
-          colors={['#E35205', '#F98E20']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.gradientBorder}
-        >
+        {!data.some(item => item.filled) ? (
           <Button
             // onPress={() => navigation.navigate('MyCards')}
-            style={styles.connectedButton}
-            labelStyle={{ color: 'white', fontSize: 18 }}
-          // onPress={onPress}
-          >
+            style={styles.button}
+            labelStyle={{color: 'white', fontSize: 18}}>
             Continue
           </Button>
-        </LinearGradient>}
-
+        ) : (
+          <LinearGradient
+            colors={['#E35205', '#F98E20']}
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            style={styles.gradientBorder}>
+            <Button
+              style={styles.connectedButton}
+              labelStyle={{color: 'white', fontSize: 18}}
+              onPress={() => setModalVisible(true)}>
+              Continue
+            </Button>
+          </LinearGradient>
+        )}
 
         <Button
           mode="outlined"
           style={styles.skipButton}
-          labelStyle={{ color: '#E35205', fontSize: 18 }}
-        // onPress={() => navigation.navigate('ServiceProviders')}
-        >
+          labelStyle={{color: '#E35205', fontSize: 18}}
+          onPress={() => setModalVisible(true)}>
           Skip for now
         </Button>
+        {modalVisible && (
+          <AllSetModal modalVisible setModalVisible={setModalVisible} />
+        )}
       </View>
     </>
   );
@@ -106,8 +112,6 @@ const styles = StyleSheet.create({
   },
   gradientBorder: {
     width: '90%',
-    borderWidth: 2,
-    borderColor: '#E35205',
     borderRadius: 8,
     paddingHorizontal: 24,
     paddingVertical: 12,

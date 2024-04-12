@@ -1,14 +1,12 @@
-import React, { useRef } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, Animated, StatusBar } from 'react-native';
+import React, {useRef} from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
+import {StyleSheet, Animated, StatusBar} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import OnboardingDashboardScreen from './onboarding.dashboard.screen';
-import MyCards from './MyCards';
 
 export type DashboardRoutes = {
   DashboardOnboarding: undefined;
-  MyCards: undefined
 };
 
 const Stack = createStackNavigator<DashboardRoutes>();
@@ -26,17 +24,21 @@ export const DashboardStack = () => {
         headerTitleAlign: 'center',
         headerTintColor: '#fff',
         headerBackground: () => (
-          <Animated.View style={[styles.headerBackground, {
-            opacity: scrollY.interpolate({
-              inputRange: [0, 100],
-              outputRange: [1, 0],
-              extrapolate: 'clamp',
-            })
-          }]}>
+          <Animated.View
+            style={[
+              styles.headerBackground,
+              {
+                opacity: scrollY.interpolate({
+                  inputRange: [0, 100],
+                  outputRange: [1, 0],
+                  extrapolate: 'clamp',
+                }),
+              },
+            ]}>
             <LinearGradient
               colors={['#E35205', '#F98E20']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
               style={StyleSheet.absoluteFill}
             />
             <StatusBar barStyle="light-content" />
@@ -49,11 +51,6 @@ export const DashboardStack = () => {
         options={{
           headerTitle: 'Onboarding',
         }}
-      />
-      <Stack.Screen
-        name="MyCards"
-        component={MyCards}
-        options={{ headerTitle: 'Connect Service Providers' }}
       />
     </Stack.Navigator>
   );
