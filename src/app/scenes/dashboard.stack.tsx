@@ -4,9 +4,11 @@ import { StyleSheet, Animated, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import OnboardingDashboardScreen from './onboarding.dashboard.screen';
+import MyCards from './MyCards';
 
 export type DashboardRoutes = {
   DashboardOnboarding: undefined;
+  MyCards: undefined
 };
 
 const Stack = createStackNavigator<DashboardRoutes>();
@@ -47,6 +49,11 @@ export const DashboardStack = () => {
         options={{
           headerTitle: 'Onboarding',
         }}
+      />
+      <Stack.Screen
+        name="MyCards"
+        component={MyCards}
+        options={{ headerTitle: 'Connect Service Providers' }}
       />
     </Stack.Navigator>
   );

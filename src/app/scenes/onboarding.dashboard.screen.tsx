@@ -4,6 +4,7 @@ import { StyleSheet, StatusBar, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { DashboardRoutes } from './dashboard.stack';
 import { Avatar, Button, Card, Text } from 'react-native-paper';
+import MyCards from './MyCards';
 
 type ScreenProps = StackScreenProps<DashboardRoutes, 'DashboardOnboarding'>;
 const data = [
@@ -30,22 +31,10 @@ const OnboardingDashboardScreen: FC<ScreenProps> = ({ navigation }) => {
         </Text>
 
         <View style={{ padding: 10 }}>
-          {data.map((item) => (
-            <Card key={item.id} style={{ marginVertical: 10 }}>
-              <Card.Title
-                title=""
-                left={(props) => <Avatar.Image {...props} source={{ uri: item.logo }} />}
-              />
-              <Card.Actions>
-                <Button mode="contained" onPress={() => console.log('Connected')}>
-                  Connect
-                </Button>
-              </Card.Actions>
-            </Card>
-          ))}
+          <MyCards />
         </View>
         <Button
-          // onPress={() => navigation.navigate('ServiceProviders')}
+          onPress={() => navigation.navigate('MyCards')}
           style={styles.button}
           labelStyle={{ color: 'white', fontSize: 18 }}
         >Continue</Button>
@@ -72,19 +61,17 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 24,
     fontWeight: 'bold',
-    // color: 'white', // Set text color as per design
     marginBottom: 16,
   },
   subtitle: {
     fontSize: 22,
     fontWeight: 'bold',
     color: '#333333',
-    // color: 'white', // Set text color as per design
     marginBottom: 8,
   },
   description: {
     fontSize: 16,
-    color: '#333333', // Set text color as per design
+    color: '#333333',
     textAlign: 'center',
     marginHorizontal: 50,
     marginBottom: 24,
@@ -100,7 +87,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'white', // Set button text color as per design
+    color: 'white',
     textAlign: 'center',
   },
   skipButton: {
