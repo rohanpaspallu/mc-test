@@ -1,31 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Modal, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Avatar, Button, IconButton, MD3Colors } from 'react-native-paper';
-import NetflixLogo from '../../assets/images/Netflix.jpg';
-import SpotifyLogo from '../../assets/images/spotify.png';
-import UberEatsLogo from '../../assets/images/ubereats.png';
-import StarbucksLogo from '../../assets/images/starbucks.png';
-import MyLoginCard from './MyLoginCard';
 import SecondModal from './SecondModal';
+import LinearGradient from 'react-native-linear-gradient';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const MyCards = () => {
-    const [data, setData] = useState([
-        { id: 1, title: 'Netflix', logo: NetflixLogo, filled: false },
-        { id: 2, title: 'Spotify', logo: SpotifyLogo, filled: false },
-        { id: 3, title: 'UberEats', logo: UberEatsLogo, filled: false },
-        { id: 4, title: 'StarBucks', logo: StarbucksLogo, filled: false },
-    ]);
-
+const MyCards = (props: any) => {
+    const { data, setData } = props
 
     const [selectedCard, setSelectedCard] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
-        console.log(modalVisible)
-    }, [modalVisible])
+        console.log(data)
+    }, [data])
 
 
-    const openModal = (card) => {
+    const openModal = (card: any) => {
         console.log("here : ", card.logo)
         setSelectedCard(card);
         setModalVisible(true);
@@ -33,13 +24,18 @@ const MyCards = () => {
 
     return (
         <View style={styles.container}>
-            {data.map(item => (
-                <Card key={item.id} style={styles.card}>
+            {data.map((item: any) => (
+                <Card key={item.id} style={[styles.card, item.filled && { borderColor: '#E35205', borderWidth: 4 }]}>
                     <Card.Content style={styles.cardContent}>
-                        <Avatar.Image source={item.logo} size={100} />
+                        <View style={styles.avatarContainer}>
+                            <Avatar.Image source={item.logo} size={100} />
+                            {item.filled && <View style={styles.iconContainer}>
+                                <MaterialIcons name="check-circle" size={20} color='green' />
+                            </View>}
+                        </View>
                     </Card.Content>
                     <Card.Actions style={styles.actions}>
-                        <Button
+                        {!item?.filled ? <Button
                             mode="outlined"
                             style={{
                                 backgroundColor: 'white',
@@ -51,7 +47,25 @@ const MyCards = () => {
                             onPress={() => openModal(item)}
                         >
                             Continue
-                        </Button>
+                        </Button> : <TouchableOpacity activeOpacity={0.8} style={{ alignSelf: 'center', right: 10 }}>
+                            <LinearGradient
+                                colors={['#E35205', '#F98E20']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={{
+                                    borderRadius: 8,
+                                    overflow: 'hidden',
+                                }}
+                            >
+                                <Button
+                                    labelStyle={{ color: 'white', fontSize: 18 }}
+                                >
+                                    Connected
+                                </Button>
+                            </LinearGradient>
+                        </TouchableOpacity>}
+
+
                     </Card.Actions>
                 </Card>
             ))}
@@ -90,6 +104,17 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 10,
         elevation: 5,
+    },
+    avatarContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        position: 'relative',
+    },
+    iconContainer: {
+        position: 'absolute',
+        top: 0,
+        right: -20,
+        backgroundColor: 'transparent',
     },
 });
 

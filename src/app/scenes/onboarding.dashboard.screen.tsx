@@ -1,20 +1,25 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { StyleSheet, StatusBar, View } from 'react-native';
 
 import { StackScreenProps } from '@react-navigation/stack';
 import { DashboardRoutes } from './dashboard.stack';
-import { Avatar, Button, Card, Text } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import MyCards from './MyCards';
+import NetflixLogo from '../../assets/images/Netflix.jpg';
+import SpotifyLogo from '../../assets/images/spotify.png';
+import UberEatsLogo from '../../assets/images/ubereats.png';
+import StarbucksLogo from '../../assets/images/starbucks.png';
+import LinearGradient from 'react-native-linear-gradient';
 
 type ScreenProps = StackScreenProps<DashboardRoutes, 'DashboardOnboarding'>;
-const data = [
-  { id: 1, title: 'Netflix', logo: 'https://dummyimage.com/100x100/000/fff&text=N' },
-  { id: 2, title: 'Spotify', logo: 'https://dummyimage.com/100x100/007700/fff&text=S' },
-  { id: 3, title: 'UberEats', logo: 'https://dummyimage.com/100x100/000077/fff&text=U' },
-  { id: 4, title: 'StarBucks', logo: 'https://dummyimage.com/100x100/770000/fff&text=SB' },
-];
 
 const OnboardingDashboardScreen: FC<ScreenProps> = ({ navigation }) => {
+  const [data, setData] = useState([
+    { id: 1, title: 'Netflix', logo: NetflixLogo, filled: false },
+    { id: 2, title: 'Spotify', logo: SpotifyLogo, filled: false },
+    { id: 3, title: 'UberEats', logo: UberEatsLogo, filled: false },
+    { id: 4, title: 'StarBucks', logo: StarbucksLogo, filled: false },
+  ]);
   return (
     <>
       <StatusBar
@@ -31,13 +36,28 @@ const OnboardingDashboardScreen: FC<ScreenProps> = ({ navigation }) => {
         </Text>
 
         <View style={{ padding: 10 }}>
-          <MyCards />
+          <MyCards data={data} setData={setData} />
         </View>
-        <Button
-          onPress={() => navigation.navigate('MyCards')}
+        {!data.some(item => item.filled) ? <Button
+          // onPress={() => navigation.navigate('MyCards')}
           style={styles.button}
           labelStyle={{ color: 'white', fontSize: 18 }}
-        >Continue</Button>
+        >Continue</Button> : <LinearGradient
+          colors={['#E35205', '#F98E20']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.gradientBorder}
+        >
+          <Button
+            // onPress={() => navigation.navigate('MyCards')}
+            style={styles.connectedButton}
+            labelStyle={{ color: 'white', fontSize: 18 }}
+          // onPress={onPress}
+          >
+            Continue
+          </Button>
+        </LinearGradient>}
+
 
         <Button
           mode="outlined"
@@ -83,6 +103,20 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     marginBottom: 16,
+  },
+  gradientBorder: {
+    width: '90%',
+    borderWidth: 2,
+    borderColor: '#E35205',
+    borderRadius: 8,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    marginBottom: 16,
+    overflow: 'hidden',
+  },
+  connectedButton: {
+    backgroundColor: 'transparent',
+    overflow: 'hidden',
   },
   buttonText: {
     fontSize: 16,
