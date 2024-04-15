@@ -5,7 +5,7 @@ import {Avatar} from 'react-native-paper';
 import DunkinDonutsLogo from '../../../assets/images/dunkindonuts.png';
 import AmazonLogo from '../../../assets/images/amazon.png';
 import StarbucksLogo from '../../../assets/images/starbucks.png';
-import {formatCurrency} from '../../utilities/commonFunctions';
+import {formatCurrency, formatDate} from '../../utilities/commonFunctions';
 
 const transactionList = [
   {
@@ -44,7 +44,7 @@ const Transactions = () => {
           </View>
           <View style={styles.infoContainer}>
             <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.itemDate}>{item.date.toDateString()}</Text>
+            <Text style={styles.itemDate}>{formatDate(item.date)}</Text>
           </View>
           <View style={styles.owingContainer}>
             <Text style={styles.itemOwing}>{formatCurrency(item.owing)}</Text>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import CardControls from './CardControls';
@@ -8,8 +8,34 @@ import StatementsView from './StatementsView';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Transactions from './Transactions';
-
+import ControlsIcon from '../../../assets/images/controls.jpg';
+import LockCard from '../../../assets/images/lockcard.jpg';
+import LockedCard from '../../../assets/images/lockedCard.jpg';
+import CardDetails from '../../../assets/images/carddetails.jpg';
 const SecondPage = () => {
+  const [iconSources, setIconSources] = useState([
+    {
+      id: 1,
+      text: 'Controls',
+      icon: ControlsIcon,
+      isClicked: false,
+      iconClicked: ControlsIcon,
+    },
+    {
+      id: 2,
+      text: 'Lock Card',
+      icon: LockCard,
+      isClicked: false,
+      iconClicked: LockedCard,
+    },
+    {
+      id: 3,
+      text: 'Card Details',
+      icon: CardDetails,
+      isClicked: false,
+      iconClicked: CardDetails,
+    },
+  ]);
   return (
     <ScrollView>
       <View
@@ -22,8 +48,11 @@ const SecondPage = () => {
         <Text style={{fontSize: 20, fontWeight: 'bold', marginVertical: 20}}>
           Mastercard •••• 1234
         </Text>
-        <CreditCardView />
-        <CardControls />
+        <CreditCardView isLocked={iconSources[1].isClicked} />
+        <CardControls
+          iconSources={iconSources}
+          setIconSources={setIconSources}
+        />
         <CurrentBalance />
         <StatementsView />
         <View style={styles.recentTransactionsContainer}>

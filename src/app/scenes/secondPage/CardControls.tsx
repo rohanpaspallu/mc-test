@@ -1,26 +1,32 @@
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
-import TuneIcon from '../../../assets/images/controls.jpg';
-import LockCard from '../../../assets/images/lockcard.jpg';
-import CardDetails from '../../../assets/images/carddetails.jpg';
+
 import {IconButton, Text} from 'react-native-paper';
 
-const CardControls = () => {
-  const iconSources = [
-    {id: 1, text: 'Controls', url: TuneIcon},
-    {id: 2, text: 'Lock Card', url: LockCard},
-    {id: 3, text: 'Card Details', url: CardDetails},
-  ];
+const CardControls = (props: any) => {
+  const {iconSources, setIconSources} = props;
+
+  const handleIconPress = (index: any) => {
+    setIconSources((prevIconSources: any) =>
+      prevIconSources.map((source: any, i: any) =>
+        i === index ? {...source, isClicked: !source.isClicked} : source,
+      ),
+    );
+  };
+
   return (
     <View style={styles.container}>
-      {iconSources.map((source, index) => (
+      {iconSources.map((source: any, index: any) => (
         <TouchableOpacity
           key={index}
           style={{alignItems: 'center'}}
-          onPress={() => console.log('Pressed')}>
+          onPress={() => handleIconPress(index)}>
           <IconButton
             icon={() => (
-              <Image source={source.url} style={{width: 80, height: 80}} />
+              <Image
+                source={source.isClicked ? source.iconClicked : source.icon}
+                style={{width: 80, height: 80}}
+              />
             )}
             iconColor="#E35205"
             size={100}
