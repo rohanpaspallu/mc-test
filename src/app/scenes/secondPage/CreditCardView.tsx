@@ -1,6 +1,7 @@
 import {
   creditCardDate,
   formatCreditCardNumber,
+  formatMastercard,
 } from '../../utilities/commonFunctions';
 import React from 'react';
 import {Image, ScrollView, View, StyleSheet} from 'react-native';
@@ -37,99 +38,114 @@ const CreditCardView = (props: any) => {
 
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: cardDetails ? 10 : -100,
-        }}>
-        {imageSources.map((source, index) => (
-          <View key={index} style={{position: 'relative'}}>
-            <Image
-              source={require('../../../assets/images/MasterCardImage.png')}
-              style={{
-                width: 350,
-                height: 200,
-                marginHorizontal: 15,
-                borderRadius: 10,
-              }}
-            />
-            {isLocked && (
-              <View
+      <View style={styles.headerContainer}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: cardDetails ? 10 : -100,
+          }}>
+          {imageSources.map((source, index) => (
+            <View key={index} style={{position: 'relative'}}>
+              <Text
                 style={{
-                  ...StyleSheet.absoluteFillObject,
-                  backgroundColor: 'rgba(128, 128, 128, 0.8)',
-                  borderRadius: 10,
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  marginVertical: 20,
+                  textAlign: 'center',
+                }}>
+                {formatMastercard(source.cardNo)}
+              </Text>
+              <Image
+                source={require('../../../assets/images/MasterCardImage.png')}
+                style={{
+                  width: 350,
+                  height: 200,
                   marginHorizontal: 15,
-                  alignItems: 'center',
-                }}>
-                <View style={{paddingTop: 30}}>
-                  <MaterialIcons name="lock" size={30} color="white" />
-                </View>
-                <Text style={{color: 'white', fontWeight: 'bold', top: 10}}>
-                  Your card has been temporarily locked
-                </Text>
-              </View>
-            )}
-
-            {cardDetails && !isLocked && (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  paddingVertical: 30,
-                }}>
-                <TouchableOpacity
-                  onPress={() => {
-                    console.log('apple wallet clicked');
+                  borderRadius: 10,
+                }}
+              />
+              {isLocked && (
+                <View
+                  style={{
+                    ...StyleSheet.absoluteFillObject,
+                    backgroundColor: 'rgba(128, 128, 128, 0.8)',
+                    borderRadius: 10,
+                    marginHorizontal: 15,
+                    alignItems: 'center',
                   }}>
-                  <Image
-                    source={require('../../../assets/images/appleWallet.jpg')}
-                    style={{
-                      width: 136,
-                      height: 42.02,
-                      borderRadius: 10,
-                    }}
-                  />
-                </TouchableOpacity>
-
-                <Text style={styles.headerStyle}>Card Number</Text>
-                <Text style={styles.value}>
-                  {formatCreditCardNumber(source.cardNo)}
-                </Text>
-                <View style={styles.separatorHorizontal} />
-                <View style={styles.rowContainer}>
-                  <View style={styles.itemContainer}>
-                    <Text style={styles.headerStyle}>Expiration Date</Text>
-                    <Text style={styles.value}>
-                      {creditCardDate(source.expires)}
-                    </Text>
+                  <View style={{paddingTop: 30}}>
+                    <MaterialIcons name="lock" size={30} color="white" />
                   </View>
-                  <View style={styles.separatorVertical} />
-                  <View style={styles.itemContainer}>
-                    <Text style={styles.headerStyle}>CVC</Text>
-                    <Text style={styles.value}>{source.CVC}</Text>
-                  </View>
+                  <Text style={{color: 'white', fontWeight: 'bold', top: 10}}>
+                    Your card has been temporarily locked
+                  </Text>
                 </View>
-                <Button
-                  mode="outlined"
-                  style={styles.payment}
-                  labelStyle={{color: '#E35205', fontSize: 18}}
-                  onPress={() => console.log('clicked')}>
-                  Copy Card Number
-                </Button>
-              </View>
-            )}
-          </View>
-        ))}
+              )}
+
+              {cardDetails && !isLocked && (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingVertical: 30,
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      console.log('apple wallet clicked');
+                    }}>
+                    <Image
+                      source={require('../../../assets/images/appleWallet.jpg')}
+                      style={{
+                        width: 136,
+                        height: 42.02,
+                        borderRadius: 10,
+                      }}
+                    />
+                  </TouchableOpacity>
+
+                  <Text style={styles.headerStyle}>Card Number</Text>
+                  <Text style={styles.value}>
+                    {formatCreditCardNumber(source.cardNo)}
+                  </Text>
+                  <View style={styles.separatorHorizontal} />
+                  <View style={styles.rowContainer}>
+                    <View style={styles.itemContainer}>
+                      <Text style={styles.headerStyle}>Expiration Date</Text>
+                      <Text style={styles.value}>
+                        {creditCardDate(source.expires)}
+                      </Text>
+                    </View>
+                    <View style={styles.separatorVertical} />
+                    <View style={styles.itemContainer}>
+                      <Text style={styles.headerStyle}>CVC</Text>
+                      <Text style={styles.value}>{source.CVC}</Text>
+                    </View>
+                  </View>
+                  <Button
+                    mode="outlined"
+                    style={styles.payment}
+                    labelStyle={{color: '#E35205', fontSize: 18}}
+                    onPress={() => console.log('clicked')}>
+                    Copy Card Number
+                  </Button>
+                </View>
+              )}
+            </View>
+          ))}
+        </View>
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   headerStyle: {
     color: '#E35205',
     textAlign: 'center',

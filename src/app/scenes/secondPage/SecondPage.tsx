@@ -41,22 +41,10 @@ const SecondPage = () => {
     <View>
       <ScrollView>
         <View style={styles.content}>
-          <View style={styles.headerContainer}>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                marginVertical: 20,
-                textAlign: 'center',
-              }}>
-              Mastercard •••• 1234
-            </Text>
-
-            <CreditCardView
-              isLocked={iconSources[1].isClicked}
-              cardDetails={iconSources[2].isClicked}
-            />
-          </View>
+          <CreditCardView
+            isLocked={iconSources[1].isClicked}
+            cardDetails={iconSources[2].isClicked}
+          />
           <CardControls
             iconSources={iconSources}
             setIconSources={setIconSources}
@@ -84,10 +72,6 @@ const SecondPage = () => {
 };
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    flex: 1,
-    backgroundColor: 'white', // Set background color to white
-  },
   content: {
     flex: 1,
     alignItems: 'center',

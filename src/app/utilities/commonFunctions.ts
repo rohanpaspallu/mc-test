@@ -30,3 +30,11 @@ export const formatCreditCardNumber = (cardNumber: number): string => {
   const formatted = cardNumberStr.replace(/(\d{4})/g, '$1 ');
   return formatted.trim();
 };
+
+export const formatMastercard = (cardNumber: number): string => {
+  const cardNumberStr = cardNumber.toString();
+  const lastFourDigits = cardNumberStr.slice(-4);
+  const formatted = `Mastercard •••• ${lastFourDigits}`;
+
+  return formatted;
+};
