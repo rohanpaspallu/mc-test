@@ -57,34 +57,36 @@ const CreditCardView = (props: any) => {
                 }}>
                 {formatMastercard(source.cardNo)}
               </Text>
-              <Image
-                source={require('../../../assets/images/MasterCardImage.png')}
-                style={{
-                  width: 350,
-                  height: 200,
-                  marginHorizontal: 15,
-                  borderRadius: 10,
-                }}
-              />
-              {isLocked && (
-                <View
+              <View>
+                <Image
+                  source={require('../../../assets/images/MasterCardImage.png')}
                   style={{
-                    ...StyleSheet.absoluteFillObject,
-                    backgroundColor: 'rgba(128, 128, 128, 0.8)',
-                    borderRadius: 10,
+                    width: 350,
+                    height: 200,
                     marginHorizontal: 15,
-                    alignItems: 'center',
-                  }}>
-                  <View style={{paddingTop: 30}}>
-                    <MaterialIcons name="lock" size={30} color="white" />
+                    borderRadius: 10,
+                  }}
+                />
+                {isLocked && (
+                  <View
+                    style={{
+                      ...StyleSheet.absoluteFillObject,
+                      backgroundColor: 'rgba(128, 128, 128, 0.8)',
+                      borderRadius: 10,
+                      marginHorizontal: 15,
+                      alignItems: 'center',
+                    }}>
+                    <View style={{paddingTop: 30}}>
+                      <MaterialIcons name="lock" size={30} color="white" />
+                    </View>
+                    <Text style={{color: 'white', fontWeight: 'bold', top: 10}}>
+                      Your card has been temporarily locked
+                    </Text>
                   </View>
-                  <Text style={{color: 'white', fontWeight: 'bold', top: 10}}>
-                    Your card has been temporarily locked
-                  </Text>
-                </View>
-              )}
+                )}
+              </View>
 
-              {cardDetails && !isLocked && (
+              {cardDetails && (
                 <View
                   style={{
                     flex: 1,
