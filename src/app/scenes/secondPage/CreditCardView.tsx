@@ -1,16 +1,39 @@
+import {
+  creditCardDate,
+  formatCreditCardNumber,
+} from '../../utilities/commonFunctions';
 import React from 'react';
 import {Image, ScrollView, View, StyleSheet} from 'react-native';
-import {Text} from 'react-native-paper';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Button, Text} from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const imageSources = [
-  {id: 1, url: '../../../assets/images/MasterCardImage.png'},
-  {id: 2, url: '../../../assets/images/MasterCardImage.png'},
-  {id: 3, url: '../../../assets/images/MasterCardImage.png'},
+  {
+    id: 1,
+    url: '../../../assets/images/MasterCardImage.png',
+    cardNo: 5426123456781234,
+    expires: new Date(),
+    CVC: 200,
+  },
+  {
+    id: 2,
+    url: '../../../assets/images/MasterCardImage.png',
+    cardNo: 5426456112307894,
+    expires: new Date(),
+    CVC: 300,
+  },
+  {
+    id: 3,
+    url: '../../../assets/images/MasterCardImage.png',
+    cardNo: 5426987654321023,
+    expires: new Date(),
+    CVC: 400,
+  },
 ];
 
 const CreditCardView = (props: any) => {
-  const {isLocked} = props;
+  const {isLocked, cardDetails} = props;
 
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -19,6 +42,7 @@ const CreditCardView = (props: any) => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
+          marginBottom: cardDetails ? 10 : -100,
         }}>
         {imageSources.map((source, index) => (
           <View key={index} style={{position: 'relative'}}>
@@ -48,6 +72,56 @@ const CreditCardView = (props: any) => {
                 </Text>
               </View>
             )}
+
+            {cardDetails && !isLocked && (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  paddingVertical: 30,
+                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    console.log('apple wallet clicked');
+                  }}>
+                  <Image
+                    source={require('../../../assets/images/appleWallet.jpg')}
+                    style={{
+                      width: 136,
+                      height: 42.02,
+                      borderRadius: 10,
+                    }}
+                  />
+                </TouchableOpacity>
+
+                <Text style={styles.headerStyle}>Card Number</Text>
+                <Text style={styles.value}>
+                  {formatCreditCardNumber(source.cardNo)}
+                </Text>
+                <View style={styles.separatorHorizontal} />
+                <View style={styles.rowContainer}>
+                  <View style={styles.itemContainer}>
+                    <Text style={styles.headerStyle}>Expiration Date</Text>
+                    <Text style={styles.value}>
+                      {creditCardDate(source.expires)}
+                    </Text>
+                  </View>
+                  <View style={styles.separatorVertical} />
+                  <View style={styles.itemContainer}>
+                    <Text style={styles.headerStyle}>CVC</Text>
+                    <Text style={styles.value}>{source.CVC}</Text>
+                  </View>
+                </View>
+                <Button
+                  mode="outlined"
+                  style={styles.payment}
+                  labelStyle={{color: '#E35205', fontSize: 18}}
+                  onPress={() => console.log('clicked')}>
+                  Copy Card Number
+                </Button>
+              </View>
+            )}
           </View>
         ))}
       </View>
@@ -55,4 +129,48 @@ const CreditCardView = (props: any) => {
   );
 };
 
+const styles = StyleSheet.create({
+  headerStyle: {
+    color: '#E35205',
+    textAlign: 'center',
+    fontSize: 16,
+    marginTop: 30,
+  },
+  value: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  separatorHorizontal: {
+    width: '85%',
+    height: 1,
+    marginVertical: 20,
+    backgroundColor: '#ADADAD',
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  itemContainer: {
+    flex: 1,
+  },
+  separatorVertical: {
+    marginTop: 30,
+    height: '50%',
+    width: 1,
+    backgroundColor: '#ADADAD',
+  },
+  payment: {
+    width: '90%',
+    backgroundColor: 'white',
+    borderColor: '#E35205',
+    borderWidth: 2,
+    borderRadius: 3,
+    paddingHorizontal: 24,
+    paddingVertical: 5,
+    marginBottom: 30,
+  },
+});
 export default CreditCardView;

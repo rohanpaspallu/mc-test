@@ -52,7 +52,10 @@ const SecondPage = () => {
               Mastercard •••• 1234
             </Text>
 
-            <CreditCardView isLocked={iconSources[1].isClicked} />
+            <CreditCardView
+              isLocked={iconSources[1].isClicked}
+              cardDetails={iconSources[2].isClicked}
+            />
           </View>
           <CardControls
             iconSources={iconSources}

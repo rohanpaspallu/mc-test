@@ -8,7 +8,7 @@ export const formatCurrency = (value: any) => {
   );
 };
 
-export function formatDate(date: Date): string {
+export const formatDate = (date: Date): string => {
   const year = date.getFullYear();
   const month = ('0' + (date.getMonth() + 1)).slice(-2);
   const day = ('0' + date.getDate()).slice(-2);
@@ -17,4 +17,16 @@ export function formatDate(date: Date): string {
   const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
 
   return `${year}-${day}-${month} ${hours}:${minutes}${ampm}`;
-}
+};
+
+export const creditCardDate = (date: Date): string => {
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear().toString().slice(-2);
+  return `${month}/${year}`;
+};
+
+export const formatCreditCardNumber = (cardNumber: number): string => {
+  const cardNumberStr = cardNumber.toString();
+  const formatted = cardNumberStr.replace(/(\d{4})/g, '$1 ');
+  return formatted.trim();
+};
