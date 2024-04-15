@@ -3,6 +3,7 @@ import {ScrollView, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import CardControls from './CardControls';
 import CreditCardView from './CreditCardView';
+import CurrentBalance from './CurrentBalance';
 
 const SecondPage = () => {
   return (
@@ -18,6 +19,7 @@ const SecondPage = () => {
         </Text>
         <CreditCardView />
         <CardControls />
+        <CurrentBalance />
       </View>
     </ScrollView>
   );
