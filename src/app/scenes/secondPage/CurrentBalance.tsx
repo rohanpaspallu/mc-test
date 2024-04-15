@@ -1,17 +1,9 @@
+import {formatCurrency} from '../../utilities/commonFunctions';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ProgressBar, Text} from 'react-native-paper';
 
 const CurrentBalance = () => {
-  const formatCurrency = (value: any) => {
-    return (
-      '$' +
-      parseFloat(value).toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
-    );
-  };
   return (
     <View style={styles.container}>
       <View>
