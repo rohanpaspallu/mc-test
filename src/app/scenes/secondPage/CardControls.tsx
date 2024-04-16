@@ -1,8 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 
-import {IconButton, Text} from 'react-native-paper';
+import {Text} from 'react-native-paper';
+import {SvgXml} from 'react-native-svg';
 
 const CardControls = (props: any) => {
   const {iconSources, setIconSources} = props;
@@ -26,15 +27,10 @@ const CardControls = (props: any) => {
           key={index}
           style={{alignItems: 'center'}}
           onPress={() => handleIconPress(index)}>
-          <IconButton
-            icon={() => (
-              <Image
-                source={source.isClicked ? source.iconClicked : source.icon}
-                style={{width: 80, height: 80}}
-              />
-            )}
-            iconColor="#E35205"
-            size={100}
+          <SvgXml
+            xml={source.isClicked ? source.iconClicked : source.icon}
+            width="70"
+            height="70"
           />
           <Text style={styles.text}>{source.text}</Text>
         </TouchableOpacity>
@@ -50,7 +46,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     padding: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     width: '100%',
   },
   text: {

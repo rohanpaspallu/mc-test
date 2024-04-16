@@ -8,33 +8,35 @@ import StatementsView from './StatementsView';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Transactions from './Transactions';
-import ControlsIcon from '../../../assets/images/controls.jpg';
-import LockCard from '../../../assets/images/lockcard.jpg';
-import LockedCard from '../../../assets/images/lockedCard.jpg';
-import CardDetails from '../../../assets/images/carddetails.jpg';
+import {
+  ControlsLogo,
+  cardDetails,
+  lockCard,
+  lockedCard,
+} from '../../utilities/commonLogos';
 
 const SecondPage = () => {
   const [iconSources, setIconSources] = useState([
     {
       id: 1,
       text: 'Controls',
-      icon: ControlsIcon,
+      icon: ControlsLogo,
       isClicked: false,
-      iconClicked: ControlsIcon,
+      iconClicked: ControlsLogo,
     },
     {
       id: 2,
       text: 'Lock Card',
-      icon: LockCard,
+      icon: lockCard,
       isClicked: false,
-      iconClicked: LockedCard,
+      iconClicked: lockedCard,
     },
     {
       id: 3,
       text: 'Card Details',
-      icon: CardDetails,
+      icon: cardDetails,
       isClicked: false,
-      iconClicked: CardDetails,
+      iconClicked: cardDetails,
     },
   ]);
   return (
