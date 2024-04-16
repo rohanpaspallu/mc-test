@@ -87,14 +87,13 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   recentTransactionsText: {
+    flex: 1,
     fontSize: 14,
-    alignItems: 'flex-start',
     color: '#333333',
     fontWeight: 'bold',
   },
   recentTransactionsSpan: {
     fontSize: 14,
-    alignItems: 'flex-end',
     color: '#333333',
     fontWeight: 'bold',
     paddingTop: 3,
