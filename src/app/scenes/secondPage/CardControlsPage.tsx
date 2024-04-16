@@ -1,11 +1,12 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Text} from 'react-native-paper';
+import {Button, Text} from 'react-native-paper';
+import ButtonCard from './ButtonCard';
 
 const CardControlsPage = () => {
   return (
-    <View>
-      <Text>Card Controls</Text>
+    <View style={{backgroundColor: '#EBEBEB'}}>
+      <ButtonCard />
     </View>
   );
 };
