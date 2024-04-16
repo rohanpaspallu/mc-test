@@ -15,25 +15,24 @@ const CardControls = (props: any) => {
   const {iconSources, setIconSources} = props;
   const [showOverlay, setShowOverlay] = useState(false);
   const navigation = useNavigation();
-  const [clickedIndex, setClickedIndex] = useState(-1);
 
   const handleIconPress = (index: number) => {
-    if (!showOverlay) {
+    if (!showOverlay && index !== 0) {
       setShowOverlay(true);
-      setClickedIndex(index);
-      setIconSources((prevIconSources: any) =>
-        prevIconSources.map((source: any, i: number) =>
-          i === index ? {...source, isClicked: !source.isClicked} : source,
-        ),
-      );
+    }
+    setIconSources(prevIconSources =>
+      prevIconSources.map((source: any, i: number) =>
+        i === index ? {...source, isClicked: !source.isClicked} : source,
+      ),
+    );
+    if (index === 0) {
+      navigation.navigate('CardControls');
     }
   };
 
   const handleOutsidePress = () => {
+    // Change state only when clicking outside the grayed area
     setShowOverlay(false);
-    if (clickedIndex === 0) {
-      navigation.navigate('CardControls');
-    }
   };
 
   return (
@@ -52,13 +51,15 @@ const CardControls = (props: any) => {
         </TouchableOpacity>
       ))}
 
-      <Modal visible={showOverlay} transparent={true} animationType="fade">
-        <TouchableOpacity style={styles.overlay} onPress={handleOutsidePress}>
-          <View style={styles.centeredIcon}>
-            <SvgXml xml={faceId} width="70" height="70" />
-          </View>
-        </TouchableOpacity>
-      </Modal>
+      {showOverlay && (
+        <Modal visible={showOverlay} transparent={true} animationType="fade">
+          <TouchableOpacity style={styles.overlay} onPress={handleOutsidePress}>
+            <View style={styles.centeredIcon}>
+              <SvgXml xml={faceId} width="70" height="70" />
+            </View>
+          </TouchableOpacity>
+        </Modal>
+      )}
     </View>
   );
 };
