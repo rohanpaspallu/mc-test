@@ -14,25 +14,34 @@ import {faceId} from '../../utilities/commonLogos';
 const CardControls = (props: any) => {
   const {iconSources, setIconSources} = props;
   const [showOverlay, setShowOverlay] = useState(false);
+  const [clickedIndex, setClickedIndex] = useState<number | null>(null);
   const navigation = useNavigation();
 
   const handleIconPress = (index: number) => {
     if (!showOverlay && index !== 0) {
       setShowOverlay(true);
     }
-    setIconSources(prevIconSources =>
-      prevIconSources.map((source: any, i: number) =>
-        i === index ? {...source, isClicked: !source.isClicked} : source,
-      ),
-    );
+
     if (index === 0) {
       navigation.navigate('CardControls');
+    } else {
+      setClickedIndex(index);
     }
   };
 
   const handleOutsidePress = () => {
-    // Change state only when clicking outside the grayed area
     setShowOverlay(false);
+
+    if (clickedIndex !== null) {
+      setIconSources((prevIconSources: any[]) =>
+        prevIconSources.map((source: any, i: number) =>
+          i === clickedIndex
+            ? {...source, isClicked: !source.isClicked}
+            : source,
+        ),
+      );
+      setClickedIndex(null);
+    }
   };
 
   return (
