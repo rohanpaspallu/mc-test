@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 
@@ -5,6 +6,7 @@ import {IconButton, Text} from 'react-native-paper';
 
 const CardControls = (props: any) => {
   const {iconSources, setIconSources} = props;
+  const navigation = useNavigation();
 
   const handleIconPress = (index: any) => {
     setIconSources((prevIconSources: any) =>
@@ -12,6 +14,9 @@ const CardControls = (props: any) => {
         i === index ? {...source, isClicked: !source.isClicked} : source,
       ),
     );
+    if (index === 0) {
+      navigation.navigate('CardControls');
+    }
   };
 
   return (

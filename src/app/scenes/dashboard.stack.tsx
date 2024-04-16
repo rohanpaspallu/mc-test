@@ -6,6 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import OnboardingDashboardScreen from './onboarding.dashboard.screen';
 import AllSetModal from './AllSetModal';
 import SecondPage from './secondPage/SecondPage';
+import CardControlsPage from './secondPage/CardControlsPage';
 
 export type DashboardRoutes = {
   DashboardOnboarding: undefined;
@@ -60,6 +61,13 @@ export const DashboardStack = () => {
         options={{
           headerTitle: 'Cards',
           headerLeft: null,
+        }}
+      />
+      <Stack.Screen
+        name="CardControls"
+        component={CardControlsPage}
+        options={{
+          headerTitle: 'Card Controls',
         }}
       />
     </Stack.Navigator>
