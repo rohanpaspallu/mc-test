@@ -84,6 +84,8 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingHorizontal: 30,
     width: '100%',
+    borderTopWidth: 0.2,
+    borderBottomColor: '#EBEBEB',
   },
   text: {
     fontSize: 16,

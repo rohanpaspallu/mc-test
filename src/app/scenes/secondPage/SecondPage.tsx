@@ -40,7 +40,7 @@ const SecondPage = () => {
     },
   ]);
   return (
-    <View>
+    <View style={{backgroundColor: '#EBEBEB'}}>
       <ScrollView>
         <View style={styles.content}>
           <CreditCardView
