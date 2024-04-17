@@ -1,3 +1,4 @@
+import MyButtons from '../components/MyButtons';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Dimensions, Modal, StyleSheet, View} from 'react-native';
@@ -26,9 +27,9 @@ const AllSetModal = (props: any) => {
                 icon={() => (
                   <>
                     <LinearGradient
-                      colors={['#E35205', '#F98E20']} // Colors for the gradient, adjust as needed
-                      start={{x: 0, y: 0}} // Start point of the gradient (left)
-                      end={{x: 1, y: 0}} // End point of the gradient (right)
+                      colors={['#E35205', '#F98E20']}
+                      start={{x: 0, y: 0}}
+                      end={{x: 1, y: 0}}
                       style={[StyleSheet.absoluteFill, {borderRadius: 50}]}
                     />
                     <MaterialIcons name="task-alt" size={60} color="white" />
@@ -54,12 +55,19 @@ const AllSetModal = (props: any) => {
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
             style={styles.gradientBorder}>
-            <Button
+            {/* <Button
               style={styles.connectedButton}
-              labelStyle={{color: 'white', fontSize: 18}}
+              labelStyle={{color: 'white'}}
               onPress={() => navigation.navigate('SecondPage')}>
               View Dashboard
-            </Button>
+            </Button> */}
+
+            <MyButtons
+              style={styles.connectedButton}
+              labelStyle={{color: 'white'}}
+              onPress={() => navigation.navigate('SecondPage')}
+              text="View Dashboard"
+            />
           </LinearGradient>
         </View>
       </View>
@@ -105,11 +113,11 @@ const styles = StyleSheet.create({
     marginTop: '-15%',
   },
   avatar: {
-    backgroundColor: '#E35205', // Background color of the Avatar
+    backgroundColor: '#E35205',
   },
   gradientBorder: {
     width: '90%',
-    borderRadius: 8,
+    borderRadius: 5,
     paddingHorizontal: 24,
     paddingVertical: 5,
     marginBottom: 16,
@@ -117,8 +125,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   connectedButton: {
-    backgroundColor: 'transparent',
-    overflow: 'hidden',
+    width: '100%',
+    paddingVertical: -20,
+    marginBottom: -4,
   },
   firstText: {
     marginTop: 10,

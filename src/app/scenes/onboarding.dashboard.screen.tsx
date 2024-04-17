@@ -11,6 +11,7 @@ import UberEatsLogo from '../../assets/images/ubereats.png';
 import StarbucksLogo from '../../assets/images/starbucks.png';
 import LinearGradient from 'react-native-linear-gradient';
 import AllSetModal from './AllSetModal';
+import MyButtons from '../components/MyButtons';
 
 type ScreenProps = StackScreenProps<DashboardRoutes, 'DashboardOnboarding'>;
 
@@ -42,34 +43,32 @@ const OnboardingDashboardScreen: FC<ScreenProps> = ({navigation}) => {
           <MyCards data={data} setData={setData} />
         </View>
         {!data.some(item => item.filled) ? (
-          <Button
-            // onPress={() => navigation.navigate('MyCards')}
+          <MyButtons
             style={styles.button}
-            labelStyle={{color: 'white', fontSize: 18}}>
-            Continue
-          </Button>
+            labelStyle={styles.testLabel}
+            text="Continue"
+          />
         ) : (
           <LinearGradient
             colors={['#E35205', '#F98E20']}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
             style={styles.gradientBorder}>
-            <Button
+            <MyButtons
+              onPress={() => setModalVisible(true)}
               style={styles.connectedButton}
-              labelStyle={{color: 'white', fontSize: 18}}
-              onPress={() => setModalVisible(true)}>
-              Continue
-            </Button>
+              labelStyle={{color: 'white'}}
+              text="Continue"
+            />
           </LinearGradient>
         )}
-
-        <Button
-          mode="outlined"
+        <MyButtons
           style={styles.skipButton}
-          labelStyle={{color: '#E35205', fontSize: 18}}
-          onPress={() => setModalVisible(true)}>
-          Skip for now
-        </Button>
+          labelStyle={{color: '#E35205'}}
+          onPress={() => setModalVisible(true)}
+          text="Skip for now"
+          mode="outlined"
+        />
         {modalVisible && (
           <AllSetModal modalVisible setModalVisible={setModalVisible} />
         )}
@@ -103,46 +102,25 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   button: {
-    width: '90%',
     backgroundColor: '#D6D6D6',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 8,
-    marginBottom: 16,
   },
+  testLabel: {color: 'white'},
   gradientBorder: {
     width: '90%',
-    borderRadius: 8,
+    borderRadius: 5,
     paddingHorizontal: 24,
-    paddingVertical: 12,
+    paddingVertical: 8,
     marginBottom: 16,
     overflow: 'hidden',
-  },
-  connectedButton: {
-    backgroundColor: 'transparent',
-    overflow: 'hidden',
-  },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
   },
   skipButton: {
-    width: '90%',
     backgroundColor: 'white',
     borderColor: '#E35205',
-    borderWidth: 2,
-    borderRadius: 8,
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    marginBottom: 16,
   },
-  skipButtonText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white', // Set button text color as per design
-    textAlign: 'center',
+  connectedButton: {
+    width: '100%',
+    paddingVertical: -20,
+    marginBottom: -4,
   },
 });
 

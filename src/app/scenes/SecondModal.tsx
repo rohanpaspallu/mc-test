@@ -1,3 +1,4 @@
+import MyButtons from '../components/MyButtons';
 import React, {useState} from 'react';
 import {
   Dimensions,
@@ -8,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Avatar, Button, IconButton, Snackbar, Text} from 'react-native-paper';
+import {Avatar, IconButton, Snackbar, Text} from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const SecondModal = (props: any) => {
@@ -135,19 +136,17 @@ const SecondModal = (props: any) => {
             </Text>
           </View>
 
-          <Button
+          <MyButtons
             mode="contained"
             style={{
               backgroundColor: '#333333',
               color: 'white',
-              width: '90%',
-              borderRadius: 5,
               marginVertical: 20,
             }}
             labelStyle={{color: 'white'}}
-            onPress={handleLogin}>
-            Connect
-          </Button>
+            text="Connect"
+            onPress={handleLogin}
+          />
         </View>
       </View>
 
