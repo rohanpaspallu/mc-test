@@ -1,7 +1,8 @@
+import MyButtons from '../../components/MyButtons';
 import {formatCurrency} from '../../utilities/commonFunctions';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Button, DataTable, Text} from 'react-native-paper';
+import {Text} from 'react-native-paper';
 const StatementsView = () => {
   return (
     <View style={styles.container}>
@@ -20,13 +21,13 @@ const StatementsView = () => {
         </View>
       </View>
 
-      <Button
+      <MyButtons
         mode="outlined"
         style={styles.payment}
-        labelStyle={{color: '#E35205', fontSize: 18}}
-        onPress={() => console.log('clicked')}>
-        Make a payment
-      </Button>
+        labelStyle={{color: '#E35205'}}
+        onPress={() => console.log('clicked')}
+        text="Make a payment"
+      />
     </View>
   );
 };
@@ -78,10 +79,6 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'white',
     borderColor: '#E35205',
-    borderWidth: 2,
-    borderRadius: 3,
-    paddingHorizontal: 24,
-    paddingVertical: 5,
     marginBottom: 30,
   },
 });

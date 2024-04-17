@@ -31,9 +31,19 @@ const CardControls = (props: any) => {
       });
   };
 
-  const handleIconPress = (index: number) => {
+  const handleIconPress = (index: number, isClicked: boolean) => {
     if (index === 1 || index === 2) {
-      handleAuthenticate(index);
+      if (index === 2 && isClicked) {
+        setIconSources(prevIconSources =>
+          prevIconSources.map((source: any, i: number) =>
+            i === index && (index === 1 || index === 2)
+              ? {...source, isClicked: !source.isClicked}
+              : source,
+          ),
+        );
+      } else {
+        handleAuthenticate(index);
+      }
     } else {
       if (index === 0) {
         navigation.navigate('CardControls');
@@ -47,7 +57,7 @@ const CardControls = (props: any) => {
         <TouchableOpacity
           key={index}
           style={{alignItems: 'center'}}
-          onPress={() => handleIconPress(index)}>
+          onPress={() => handleIconPress(index, source.isClicked)}>
           <SvgXml
             xml={source.isClicked ? source.iconClicked : source.icon}
             width="70"

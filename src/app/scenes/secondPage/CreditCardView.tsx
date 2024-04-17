@@ -1,3 +1,4 @@
+import MyButtons from '../../components/MyButtons';
 import {
   creditCardDate,
   formatCreditCardNumber,
@@ -6,7 +7,7 @@ import {
 import React from 'react';
 import {Image, ScrollView, View, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Button, Text} from 'react-native-paper';
+import {Text} from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const imageSources = [
@@ -126,13 +127,13 @@ const CreditCardView = (props: any) => {
                       <Text style={styles.value}>{source.CVC}</Text>
                     </View>
                   </View>
-                  <Button
+                  <MyButtons
                     mode="outlined"
                     style={styles.payment}
-                    labelStyle={{color: '#E35205', fontSize: 18}}
-                    onPress={() => console.log('clicked')}>
-                    Copy Card Number
-                  </Button>
+                    labelStyle={{color: '#E35205'}}
+                    onPress={() => console.log('clicked')}
+                    text="Copy Card Number"
+                  />
                 </View>
               )}
             </View>
@@ -184,11 +185,8 @@ const styles = StyleSheet.create({
     width: '90%',
     backgroundColor: 'white',
     borderColor: '#E35205',
-    borderWidth: 2,
-    borderRadius: 3,
-    paddingHorizontal: 24,
-    paddingVertical: 5,
-    marginBottom: 30,
+    marginTop: 10,
+    marginBottom: -5,
   },
 });
 export default CreditCardView;
