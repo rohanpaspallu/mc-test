@@ -35,7 +35,7 @@ const ButtonCard = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginVertical: 20,
+                marginVertical: 10,
               }}>
               <SvgXml xml={item.icon} width="25" height="25" />
               <Text style={styles.textStyle}>{item.title}</Text>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     flexWrap: 'wrap',
     marginHorizontal: 15,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   touchable: {
     width: '45%',
