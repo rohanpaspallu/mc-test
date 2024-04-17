@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {StyleSheet, StatusBar, View} from 'react-native';
+import {StyleSheet, StatusBar, View, ScrollView} from 'react-native';
 
 import {StackScreenProps} from '@react-navigation/stack';
 import {DashboardRoutes} from './dashboard.stack';
@@ -32,47 +32,49 @@ const OnboardingDashboardScreen: FC<ScreenProps> = ({navigation}) => {
         barStyle="dark-content"
         backgroundColor="transparent"
       />
-      <View style={styles.container}>
-        <Text style={styles.subtitle}>Connect service providers</Text>
-        <Text style={styles.description}>
-          Select accounts you have that you would like to update with your new
-          credit card
-        </Text>
+      <ScrollView style={{paddingVertical: 20}}>
+        <View style={styles.container}>
+          <Text style={styles.subtitle}>Connect service providers</Text>
+          <Text style={styles.description}>
+            Select accounts you have that you would like to update with your new
+            credit card
+          </Text>
 
-        <View style={{padding: 10}}>
-          <MyCards data={data} setData={setData} />
-        </View>
-        {!data.some(item => item.filled) ? (
-          <MyButtons
-            style={styles.button}
-            labelStyle={styles.testLabel}
-            text="Continue"
-          />
-        ) : (
-          <LinearGradient
-            colors={['#E35205', '#F98E20']}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}
-            style={styles.gradientBorder}>
+          <View style={{padding: 10}}>
+            <MyCards data={data} setData={setData} />
+          </View>
+          {!data.some(item => item.filled) ? (
             <MyButtons
-              onPress={() => setModalVisible(true)}
-              style={styles.connectedButton}
-              labelStyle={{color: 'white'}}
+              style={styles.button}
+              labelStyle={styles.testLabel}
               text="Continue"
             />
-          </LinearGradient>
-        )}
-        <MyButtons
-          style={styles.skipButton}
-          labelStyle={{color: '#E35205'}}
-          onPress={() => setModalVisible(true)}
-          text="Skip for now"
-          mode="outlined"
-        />
-        {modalVisible && (
-          <AllSetModal modalVisible setModalVisible={setModalVisible} />
-        )}
-      </View>
+          ) : (
+            <LinearGradient
+              colors={['#E35205', '#F98E20']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
+              style={styles.gradientBorder}>
+              <MyButtons
+                onPress={() => setModalVisible(true)}
+                style={styles.connectedButton}
+                labelStyle={{color: 'white'}}
+                text="Continue"
+              />
+            </LinearGradient>
+          )}
+          <MyButtons
+            style={styles.skipButton}
+            labelStyle={{color: '#E35205'}}
+            onPress={() => setModalVisible(true)}
+            text="Skip for now"
+            mode="outlined"
+          />
+          {modalVisible && (
+            <AllSetModal modalVisible setModalVisible={setModalVisible} />
+          )}
+        </View>
+      </ScrollView>
     </>
   );
 };
