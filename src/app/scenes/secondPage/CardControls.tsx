@@ -5,42 +5,39 @@ import {
   View,
   Text,
   Dimensions,
-  Modal,
 } from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import {faceId} from '../../utilities/commonLogos';
+import TouchID from 'react-native-touch-id';
 
 const CardControls = (props: any) => {
   const {iconSources, setIconSources} = props;
-  const [showOverlay, setShowOverlay] = useState(false);
-  const [clickedIndex, setClickedIndex] = useState<number | null>(null);
   const navigation = useNavigation();
 
-  const handleIconPress = (index: number) => {
-    if (!showOverlay && index !== 0) {
-      setShowOverlay(true);
-    }
-
-    if (index === 0) {
-      navigation.navigate('CardControls');
-    } else {
-      setClickedIndex(index);
-    }
+  const handleAuthenticate = (index: number) => {
+    TouchID.authenticate('Authenticate with your fingerprint')
+      .then(() => {
+        setIconSources(prevIconSources =>
+          prevIconSources.map((source: any, i: number) =>
+            i === index && (index === 1 || index === 2)
+              ? {...source, isClicked: !source.isClicked}
+              : source,
+          ),
+        );
+      })
+      .catch(error => {
+        console.log('Authentication Failed', error);
+      });
   };
 
-  const handleOutsidePress = () => {
-    setShowOverlay(false);
-
-    if (clickedIndex !== null) {
-      setIconSources((prevIconSources: any[]) =>
-        prevIconSources.map((source: any, i: number) =>
-          i === clickedIndex
-            ? {...source, isClicked: !source.isClicked}
-            : source,
-        ),
-      );
-      setClickedIndex(null);
+  const handleIconPress = (index: number) => {
+    if (index === 1 || index === 2) {
+      handleAuthenticate(index);
+    } else {
+      if (index === 0) {
+        navigation.navigate('CardControls');
+      }
     }
   };
 
@@ -59,16 +56,6 @@ const CardControls = (props: any) => {
           <Text style={styles.text}>{source.text}</Text>
         </TouchableOpacity>
       ))}
-
-      {showOverlay && (
-        <Modal visible={showOverlay} transparent={true} animationType="fade">
-          <TouchableOpacity style={styles.overlay} onPress={handleOutsidePress}>
-            <View style={styles.centeredIcon}>
-              <SvgXml xml={faceId} width="70" height="70" />
-            </View>
-          </TouchableOpacity>
-        </Modal>
-      )}
     </View>
   );
 };
@@ -91,17 +78,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
     fontWeight: '900',
-  },
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  centeredIcon: {
-    position: 'absolute',
-    top: height / 2 - 35,
-    left: width / 2 - 35,
   },
 });
 
