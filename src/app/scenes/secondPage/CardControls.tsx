@@ -8,8 +8,17 @@ import {
 } from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
-import {faceId} from '../../utilities/commonLogos';
 import TouchID from 'react-native-touch-id';
+
+const updateData = (setIconSources: any, index: number) => {
+  setIconSources(prevIconSources =>
+    prevIconSources.map((source: any, i: number) =>
+      i === index && (index === 1 || index === 2)
+        ? {...source, isClicked: !source.isClicked}
+        : source,
+    ),
+  );
+};
 
 const CardControls = (props: any) => {
   const {iconSources, setIconSources} = props;
@@ -18,13 +27,14 @@ const CardControls = (props: any) => {
   const handleAuthenticate = (index: number) => {
     TouchID.authenticate('Authenticate with your fingerprint')
       .then(() => {
-        setIconSources(prevIconSources =>
-          prevIconSources.map((source: any, i: number) =>
-            i === index && (index === 1 || index === 2)
-              ? {...source, isClicked: !source.isClicked}
-              : source,
-          ),
-        );
+        // setIconSources(prevIconSources =>
+        //   prevIconSources.map((source: any, i: number) =>
+        //     i === index && (index === 1 || index === 2)
+        //       ? {...source, isClicked: !source.isClicked}
+        //       : source,
+        //   ),
+        // );
+        updateData(setIconSources, index);
       })
       .catch(error => {
         console.log('Authentication Failed', error);
@@ -34,13 +44,7 @@ const CardControls = (props: any) => {
   const handleIconPress = (index: number, isClicked: boolean) => {
     if (index === 1 || index === 2) {
       if (index === 2 && isClicked) {
-        setIconSources(prevIconSources =>
-          prevIconSources.map((source: any, i: number) =>
-            i === index && (index === 1 || index === 2)
-              ? {...source, isClicked: !source.isClicked}
-              : source,
-          ),
-        );
+        updateData(setIconSources, index);
       } else {
         handleAuthenticate(index);
       }
